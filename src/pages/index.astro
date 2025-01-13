@@ -1,11 +1,16 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import ValveIcon from '../components/ValveIcon.astro';
 ---
 
 <Layout>
-	<Welcome />
+    <header class="flex items-center justify-between w-100 px-10 py-4">
+        <ValveIcon />
+        <img class="h-20" src="/yellow-sphere.png" alt="Made by Javier Santos">
+    </header>
+    <main>
+    </main>
+    <footer>
+
+    </footer>
 </Layout>
