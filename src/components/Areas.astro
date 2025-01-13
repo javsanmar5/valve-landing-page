@@ -1,0 +1,40 @@
+---
+import { categories } from './../assets/areas.js';
+---
+
+<ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-10">
+  {categories.map((category, index) => (
+    <li class="hover:text-white cursor-pointer group transition-colors duration-300" data-index={index}>
+      <div class="mx-[18vw] group-[.active]:text-white">
+        {category.name}
+      </div>
+      <div class="px-[18vw] hidden mt-4 text-xl bg-white text-gray-600" id={`content-${index}`}>
+        {category.content}
+      </div>
+    </li>
+  ))}
+</ul>
+
+<script>
+  document.addEventListener('click', (event) => {
+    const clickedItem = event.target.closest('li[data-index]');
+    if (!clickedItem) return;
+
+    const index = clickedItem.dataset.index;
+    const contentElement = document.getElementById(`content-${index}`);
+
+    document.querySelectorAll('[id^="content-"]').forEach((el) => {
+      if (el !== contentElement) el.classList.add('hidden');
+    });
+
+    document.querySelectorAll('li[data-index]').forEach((li) => {
+      li.classList.remove('active');
+    });
+
+    const isHidden = contentElement.classList.toggle('hidden');
+    if (!isHidden) {
+      clickedItem.classList.add('active');
+    }
+  });
+</script>
+
