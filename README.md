@@ -17,11 +17,11 @@ A simple clone of Valve's landing page built using **Astro** and **Tailwind CSS*
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/javsanmar5/valve-landing-page-clone.git
+   git clone https://github.com/javsanmar5/valve-landing-page.git
 
 2. Navigate to the project folder:
     ```bash
-    cd valve-landing-page-clone
+    cd valve-landing-page
 
 3. Install dependencies:
     ```bash
