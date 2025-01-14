@@ -11,7 +11,7 @@ const areas = await getCollection("areas");
       <li>
         <button
           id={`toggle-button-${index}`}
-          class="mx-[18vw] w-full hover:text-white text-left cursor-pointer group transition-colors duration-300">
+          class="mx-[18vw] hover:text-white text-left cursor-pointer group transition-colors duration-300">
           {title}
         </button>
         <div
@@ -19,7 +19,7 @@ const areas = await getCollection("areas");
           id={`content-${index}`}
           data-visible="false"
         >
-          <div class="px-[18vw] py-28 text-xl">
+          <div class="pl-[18vw] py-28 text-xl">
             <h2>{h2}</h2>
             <p class="font-thin py-6">{description}</p>
             <ul class="flex gap-40 text-black">
