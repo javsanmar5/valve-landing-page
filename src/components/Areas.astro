@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 const areas = await getCollection("areas");
 ---
-<ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-10">
+<ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-4">
   {areas.map((area, index) => {
     const { slug, data } = area;
     const { title, h2, description, works } = data;
@@ -22,7 +22,7 @@ const areas = await getCollection("areas");
           <div class="px-[18vw] py-28 text-xl">
             <h2>{h2}</h2>
             <p class="font-thin py-6">{description}</p>
-            <ul class="flex items-center justify-between w-full text-black">
+            <ul class="flex gap-40 text-black">
               {works.map((work) => (
                 <li>{work}</li>
               ))}
