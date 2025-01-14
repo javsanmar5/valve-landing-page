@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 const areas = await getCollection("areas");
 ---
-
 <ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-10">
   {areas.map((area, index) => {
     const { slug, data } = area;
@@ -16,18 +15,21 @@ const areas = await getCollection("areas");
           {title}
         </button>
         <div
-          class="px-[18vw] hidden mt-4 text-xl bg-white text-gray-600"
+          class="content-wrapper max-h-0 overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out mt-4 bg-white text-gray-600"
           id={`content-${index}`}
           data-visible="false"
         >
-          <h2>{h2}</h2>
-          <p>{description}</p>
-          <ul>
-            {works.map(work => (
-              <li>{work}</li>
-            ))}
-          </ul>
+          <div class="px-[18vw] py-28 text-xl">
+            <h2>{h2}</h2>
+            <p class="font-thin py-6">{description}</p>
+            <ul class="flex items-center justify-between w-full text-black">
+              {works.map((work) => (
+                <li>{work}</li>
+              ))}
+            </ul>
+          </div>
         </div>
+
       </li>
     );
   })}
@@ -38,18 +40,19 @@ const areas = await getCollection("areas");
     button.addEventListener("click", () => {
       const index = button.id.split("-").pop(); 
       const content = document.getElementById(`content-${index}`);
-      
+
       if (!content) {
         console.warn(`No content found for index ${index}`);
         return;
       }
-      
+
       const isVisible = content.getAttribute("data-visible") === "true";
+
       if (isVisible) {
-        content.classList.add("hidden");
+        content.style.maxHeight = "0";
         content.setAttribute("data-visible", "false");
       } else {
-        content.classList.remove("hidden");
+        content.style.maxHeight = content.scrollHeight + "px"; 
         content.setAttribute("data-visible", "true");
       }
     });
