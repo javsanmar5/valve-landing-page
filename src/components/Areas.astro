@@ -38,7 +38,7 @@ const areas = await getCollection("areas");
 <script>
   document.querySelectorAll("button[id^='toggle-button-']").forEach((button) => {
     button.addEventListener("click", () => {
-      const index = button.id.split("-").pop(); 
+      const index = button.id.split("-").pop();
       const content = document.getElementById(`content-${index}`);
 
       if (!content) {
@@ -48,11 +48,19 @@ const areas = await getCollection("areas");
 
       const isVisible = content.getAttribute("data-visible") === "true";
 
+      document.querySelectorAll(".content-wrapper").forEach((otherContent) => {
+        if (otherContent !== content) {
+          const otherContentElement = otherContent as HTMLElement;
+          otherContentElement.style.maxHeight = "0";
+          otherContentElement.setAttribute("data-visible", "false");
+        }
+      });
+
       if (isVisible) {
         content.style.maxHeight = "0";
         content.setAttribute("data-visible", "false");
       } else {
-        content.style.maxHeight = content.scrollHeight + "px"; 
+        content.style.maxHeight = content.scrollHeight + "px";
         content.setAttribute("data-visible", "true");
       }
     });
