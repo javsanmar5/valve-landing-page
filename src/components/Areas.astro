@@ -1,48 +1,57 @@
 ---
-import { getCollection } from "astro:content"
+import { getCollection } from "astro:content";
 const areas = await getCollection("areas");
 ---
 
 <ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-10">
   {areas.map((area, index) => {
-    const {slug, data} = area;
-    const {title, h2, description, works} = data;
+    const { slug, data } = area;
+    const { title, h2, description, works } = data;
 
-    return(
-      <li class="hover:text-white cursor-pointer group transition-colors duration-300" data-index={index}>
-        <div class="mx-[18vw] group-[.active]:text-white">
+    return (
+      <li>
+        <button
+          id={`toggle-button-${index}`}
+          class="mx-[18vw] hover:text-white text-left cursor-pointer group transition-colors duration-300">
           {title}
-        </div>
-        <div class="px-[18vw] hidden mt-4 text-xl bg-white text-gray-600" id={`content-${index}`}>
-          {h2}
-          {description}
-          {works}
+        </button>
+        <div
+          class="px-[18vw] hidden mt-4 text-xl bg-white text-gray-600"
+          id={`content-${index}`}
+          data-visible="false"
+        >
+          <h2>{h2}</h2>
+          <p>{description}</p>
+          <ul>
+            {works.map(work => (
+              <li>{work}</li>
+            ))}
+          </ul>
         </div>
       </li>
-    )}
-    )}
-  </ul>
+    );
+  })}
+</ul>
 
 <script>
-  document.addEventListener('click', (event) => {
-    const clickedItem = event.target.closest('li[data-index]');
-    if (!clickedItem) return;
-
-    const index = clickedItem.dataset.index;
-    const contentElement = document.getElementById(`content-${index}`);
-
-    document.querySelectorAll('[id^="content-"]').forEach((el) => {
-      if (el !== contentElement) el.classList.add('hidden');
+  document.querySelectorAll("button[id^='toggle-button-']").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = button.id.split("-").pop(); 
+      const content = document.getElementById(`content-${index}`);
+      
+      if (!content) {
+        console.warn(`No content found for index ${index}`);
+        return;
+      }
+      
+      const isVisible = content.getAttribute("data-visible") === "true";
+      if (isVisible) {
+        content.classList.add("hidden");
+        content.setAttribute("data-visible", "false");
+      } else {
+        content.classList.remove("hidden");
+        content.setAttribute("data-visible", "true");
+      }
     });
-
-    document.querySelectorAll('li[data-index]').forEach((li) => {
-      li.classList.remove('active');
-    });
-
-    const isHidden = contentElement.classList.toggle('hidden');
-    if (!isHidden) {
-      clickedItem.classList.add('active');
-    }
   });
 </script>
-
