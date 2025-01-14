@@ -1,19 +1,27 @@
 ---
-import { categories } from './../assets/areas.js';
+import { getCollection } from "astro:content"
+const areas = await getCollection("areas");
 ---
 
 <ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-10">
-  {categories.map((category, index) => (
-    <li class="hover:text-white cursor-pointer group transition-colors duration-300" data-index={index}>
-      <div class="mx-[18vw] group-[.active]:text-white">
-        {category.name}
-      </div>
-      <div class="px-[18vw] hidden mt-4 text-xl bg-white text-gray-600" id={`content-${index}`}>
-        {category.content}
-      </div>
-    </li>
-  ))}
-</ul>
+  {areas.map((area, index) => {
+    const {slug, data} = area;
+    const {title, h2, description, works} = data;
+
+    return(
+      <li class="hover:text-white cursor-pointer group transition-colors duration-300" data-index={index}>
+        <div class="mx-[18vw] group-[.active]:text-white">
+          {title}
+        </div>
+        <div class="px-[18vw] hidden mt-4 text-xl bg-white text-gray-600" id={`content-${index}`}>
+          {h2}
+          {description}
+          {works}
+        </div>
+      </li>
+    )}
+    )}
+  </ul>
 
 <script>
   document.addEventListener('click', (event) => {
