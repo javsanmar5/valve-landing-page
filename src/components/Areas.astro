@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 const areas = await getCollection("areas");
 ---
-<ul class="text-7xl text-[#f74843] font-bold [&>li]:mt-4">
+<ul class="text-7xl text-[#f74843] font-extrabold [&>li]:mt-4">
   {areas.map((area, index) => {
     const { slug, data } = area;
     const { title, h2, description, works } = data;
@@ -11,7 +11,7 @@ const areas = await getCollection("areas");
       <li>
         <button
           id={`toggle-button-${index}`}
-          class="mx-[18vw] hover:text-white text-left cursor-pointer group transition-colors duration-300">
+          class="mx-[18vw] w-full hover:text-white text-left cursor-pointer group transition-colors duration-300">
           {title}
         </button>
         <div
